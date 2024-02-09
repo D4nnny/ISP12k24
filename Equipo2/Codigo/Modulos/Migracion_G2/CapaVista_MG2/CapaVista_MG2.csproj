@@ -72,6 +72,18 @@
     <Compile Include="frmDatosPersonales.Designer.cs">
       <DependentUpon>frmDatosPersonales.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmInformacionPersonal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInformacionPersonal.Designer.cs">
+      <DependentUpon>frmInformacionPersonal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmInfoSolicitudPasaporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInfoSolicitudPasaporte.Designer.cs">
+      <DependentUpon>frmInfoSolicitudPasaporte.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gen_Preguntas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +127,12 @@
     <EmbeddedResource Include="frmDatosPersonales.resx">
       <DependentUpon>frmDatosPersonales.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmInformacionPersonal.resx">
+      <DependentUpon>frmInformacionPersonal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInfoSolicitudPasaporte.resx">
+      <DependentUpon>frmInfoSolicitudPasaporte.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Man_Boleta.resx">
       <DependentUpon>Man_Boleta.cs</DependentUpon>
     </EmbeddedResource>
@@ -140,6 +158,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="frmInfoSolicitudPasaporte.Designer.xs" />
+    <None Include="frmInfoSolicitudPasaporte.xs">
+      <SubType>Form</SubType>
+    </None>
     <None Include="Resources\Image1.bmp" />
   </ItemGroup>
   <ItemGroup>
