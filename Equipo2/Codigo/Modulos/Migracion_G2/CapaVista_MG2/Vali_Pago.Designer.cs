@@ -49,7 +49,7 @@ namespace CapaVista_MG2
             this.button2.BackColor = System.Drawing.Color.Red;
             this.button2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(435, 386);
+            this.button2.Location = new System.Drawing.Point(435, 380);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(91, 34);
             this.button2.TabIndex = 25;
@@ -61,7 +61,7 @@ namespace CapaVista_MG2
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(238)))), ((int)(((byte)(61)))));
             this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(312, 386);
+            this.button1.Location = new System.Drawing.Point(312, 380);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(95, 34);
             this.button1.TabIndex = 24;
