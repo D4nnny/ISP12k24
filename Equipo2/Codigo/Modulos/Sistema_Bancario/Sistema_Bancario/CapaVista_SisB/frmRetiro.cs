@@ -16,5 +16,12 @@ namespace CapaVista_SisB
         {
             InitializeComponent();
         }
+
+        private void btn_genCodigo_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            int codigo = rnd.Next(100000000, 999999999);
+            label_CodigoSeguridad.Text = codigo.ToString();
+        }
     }
 }
