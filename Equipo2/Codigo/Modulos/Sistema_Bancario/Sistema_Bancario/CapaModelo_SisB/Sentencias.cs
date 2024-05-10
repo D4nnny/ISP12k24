@@ -91,8 +91,6 @@ namespace CapaModelo_SisB
                                 cmd.Parameters.AddWithValue("@fk_movban_num_cuenta_credito", numCuentaCred);
                                 cmd.Parameters.AddWithValue("@movban_status", estado);
                                 cmd.Parameters.AddWithValue("@movban_fecha_de_ingreso", DateTime.Now);
-
-
                                 cmd.ExecuteNonQuery();
                             }
 
