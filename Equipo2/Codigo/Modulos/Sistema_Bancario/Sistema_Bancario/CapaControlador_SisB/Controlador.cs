@@ -135,5 +135,14 @@ namespace CapaControlador_SisB
 
         }
 
+        public DataTable ObtenerCuentas()
+        {
+            return sentencias.ObtenerCuentas();
+        }
+        public decimal ObtenerSaldoCuenta(int cuentaId)
+        {
+            return sentencias.ObtenerSaldoCuenta(cuentaId);
+        }
+
     }
 }

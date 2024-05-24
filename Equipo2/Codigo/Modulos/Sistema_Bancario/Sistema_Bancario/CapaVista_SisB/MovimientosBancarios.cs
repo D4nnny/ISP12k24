@@ -20,7 +20,7 @@ namespace CapaVista_SisB
         {
             InitializeComponent();
             actualizardatagridView();
-
+            CargarCuentasEnCombobox();
             dgv_vistaTransacciones.Columns[0].HeaderText = "ID";
             dgv_vistaTransacciones.Columns[1].HeaderText = "Valor";
             dgv_vistaTransacciones.Columns[2].HeaderText = "Descripcion";
@@ -28,8 +28,29 @@ namespace CapaVista_SisB
             dgv_vistaTransacciones.Columns[4].HeaderText = "Cuenta a acreditar";
             dgv_vistaTransacciones.Columns[5].HeaderText = "Estatus";
             dgv_vistaTransacciones.Columns[6].HeaderText = "Fecha de ingreso";
-        }
 
+            cmb_cuentaDebito.SelectedIndexChanged += cmb_cuentaDebito_SelectedIndexChanged;
+            cmb_cuentaCredito.SelectedIndexChanged += cmb_cuentaCredito_SelectedIndexChanged;
+
+            cmb_cuentaDebito.SelectedIndex = -1;
+            cmb_cuentaCredito.SelectedIndex = -1;
+            txt_cuentaDebito.Clear();
+            txt_cuentaCredito.Clear();
+            txt_valorTransferencia.Clear();
+            txt_descripcionTransferencia.Clear();
+            txt_estado.Clear();
+        }
+        private void CargarCuentasEnCombobox()
+        {
+            DataTable dtCuentas = cn.ObtenerCuentas();
+            cmb_cuentaDebito.DataSource = dtCuentas;
+            cmb_cuentaDebito.DisplayMember = "cue_numero";
+            cmb_cuentaDebito.ValueMember = "cue_id";
+
+            cmb_cuentaCredito.DataSource = dtCuentas.Copy(); // Crear una copia para evitar conflictos con el mismo DataSource
+            cmb_cuentaCredito.DisplayMember = "cue_numero";
+            cmb_cuentaCredito.ValueMember = "cue_id";
+        }
         public void actualizardatagridView()
         {
             DataTable dt = cn.llenarTbl(mov);
@@ -79,12 +100,31 @@ namespace CapaVista_SisB
 
         private void btn_rtrans_Click(object sender, EventArgs e)
         {
+            if (!decimal.TryParse(txt_valorTransferencia.Text, out decimal valorTransferencia))
+            {
+                MessageBox.Show("El valor de la transferencia no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!int.TryParse(txt_cuentaDebito.Text, out int cuentaDebitoId) || !int.TryParse(txt_cuentaCredito.Text, out int cuentaCreditoId))
+            {
+                MessageBox.Show("Las cuentas seleccionadas no son válidas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            decimal saldoCuentaDebito = cn.ObtenerSaldoCuenta(cuentaDebitoId);
+
+            if (saldoCuentaDebito < valorTransferencia)
+            {
+                MessageBox.Show("Saldo insuficiente en la cuenta a debitar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string estado = "1";
-            DialogResult result = MessageBox.Show("¿Desea guardar el archivo?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question); //OTTO ADRIAN LOPEZ VENTURA 0901-20-1069 
+            DialogResult result = MessageBox.Show("¿Desea guardar el archivo?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
-                //LUIS ALBERTO FRANCO MORAN 0901-20-23979
                 // Llamar al Controlador para insertar el movimiento en la base de datos
                 cn.InsertarMovimiento(txt_valorTransferencia.Text, txt_descripcionTransferencia.Text, txt_cuentaDebito.Text, txt_cuentaCredito.Text, estado);
 
@@ -98,13 +138,11 @@ namespace CapaVista_SisB
                 txt_valorTransferencia.Clear();
                 txt_descripcionTransferencia.Clear();
 
-
                 // Mostrar un mensaje de éxito
                 MessageBox.Show("Movimiento realizado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                //LUIS ALBERTO FRANCO MORAN 0901-20-23979
                 // Limpiar los TextBox si el usuario elige "No"
                 txt_cuentaDebito.Clear();
                 txt_cuentaCredito.Clear();
@@ -112,8 +150,18 @@ namespace CapaVista_SisB
                 txt_descripcionTransferencia.Clear();
 
                 // Mostrar un mensaje informativo
-                MessageBox.Show("No se guardó el archivo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);//OTTO ADRIAN LOPEZ VENTURA 0901-20-1069 
+                MessageBox.Show("No se guardó el archivo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void cmb_cuentaDebito_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmb_cuentaCredito_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
